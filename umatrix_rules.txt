@@ -143,3 +143,14 @@ You Need A Budget
     app.youneedabudget.com *
         _ 1st-party *
         _ youneedabudget.com *
+
+Instapaper
+    instapaper.com *
+        _ 1st-party *
+        _ amazonaws.com *
+        _ use.typekit.net css
+        _ use.typekit.net script
+
+Instapaper third party
+    * instapaper.com
+        _ instapaper.com *
