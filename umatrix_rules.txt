@@ -134,3 +134,7 @@ Toggl
         _ 1st-party *
         _ toggl.com *
 
+Localhost
+    localhost
+        _ 1st-party *
+        _ localhost *
