@@ -3,105 +3,105 @@
 ! Maintainer: Kellen Frodelius-Fujimoto
 
 Twitch.tv
-    twitch.tv *
-        _ 1st-party *
-        _ 1st-party script
-        _ 1st-party cookie
-        _ jtvnw.net image
-        _ ttvnw.net xhr
-        _ static.twitchcdn.net *
-        _ static.twitchcdn.net script
-        _ polyfill.twitchsvc.net script
-        _ imasdk.googleapis.com script
-        no workers: _ false
+	twitch.tv *
+		_ 1st-party *
+		_ 1st-party script
+		_ 1st-party cookie
+		_ jtvnw.net image
+		_ ttvnw.net xhr
+		_ static.twitchcdn.net *
+		_ static.twitchcdn.net script
+		_ polyfill.twitchsvc.net script
+		_ imasdk.googleapis.com script
+		no workers: _ false
 
 Twitch.tv third party
-    * twitch.tv
-        _ twitch.tv script
-        _ twitch.tv xhr
-        _ player.twitch.tv *
-        ! It doesn't show that there are any frames, but allowing them is necessary
-        _ player.twitch.tv frame
-        _ ssl.fastly.net script
-        _ ssl.fastly.net image
-        _ jtvnw.net image
-        _ ttvnw.net xhr
+	* twitch.tv
+		_ twitch.tv script
+		_ twitch.tv xhr
+		_ player.twitch.tv *
+		! It doesn't show that there are any frames, but allowing them is necessary
+		_ player.twitch.tv frame
+		_ ssl.fastly.net script
+		_ ssl.fastly.net image
+		_ jtvnw.net image
+		_ ttvnw.net xhr
 
 Imgur third party
-    * imgur.com
-        _ imgur.com media
-        _ imgur.com image
+	* imgur.com
+		_ imgur.com media
+		_ imgur.com image
 
 Gyfcat third party
-    * gyfcat.com
-        _ gyfcat.com media
+	* gyfcat.com
+		_ gyfcat.com media
 
 Twitter third party
-    * twitter.com
-        _ twitter.com *
-        _ twitter.com script
-        _ cdn.syndication.twimg.com script
-        _ pbs.twimg.com image
+	* twitter.com
+		_ twitter.com *
+		_ twitter.com script
+		_ cdn.syndication.twimg.com script
+		_ pbs.twimg.com image
 
 Stack Exchange
-    stackexchange.com *
-        _ 1st-party *
-        _ cdn.sstatic.net *
-        _ cdn.sstatic.net script
-        _ ajax.googleapis.com script
-        ! gets rid of annoying enable javascript banner
-        noscript-spoof: _ false
+	stackexchange.com *
+		_ 1st-party *
+		_ cdn.sstatic.net *
+		_ cdn.sstatic.net script
+		_ ajax.googleapis.com script
+		! gets rid of annoying enable javascript banner
+		noscript-spoof: _ false
 
 Stack Overflow
-    stackoverflow.com *
-        _ 1st-party *
-        _ cdn.sstatic.net *
-        _ cdn.sstatic.net script
-        _ ajax.googleapis.com script
-        ! gets rid of annoying enable javascript banner
-        noscript-spoof: _ false
+	stackoverflow.com *
+		_ 1st-party *
+		_ cdn.sstatic.net *
+		_ cdn.sstatic.net script
+		_ ajax.googleapis.com script
+		! gets rid of annoying enable javascript banner
+		noscript-spoof: _ false
 
 Goole Drive
-    google.com *
-        _ 1st-party *
-        _ apis.google.com script
-        _ docs.google.com script
-        _ www.google.com script
-        _ www.gstatic.com script
-        _ fonts.gstatic.com css
-        _ ssl.gstatic.com image
-        !needed for google sheets
-        no-workers: _ false
+	google.com *
+		_ 1st-party *
+		_ apis.google.com script
+		_ docs.google.com script
+		_ www.google.com script
+		_ www.gstatic.com script
+		_ fonts.gstatic.com css
+		_ ssl.gstatic.com image
+		!needed for google sheets
+		no-workers: _ false
 
 Gmail
-    mail.google.com *
-        _ 1st-party *
-        _ googleusercontent.com image
-        _ gstatic.com image
-        _ gstatic.com script
-        ! to remove annoying allow javascript banner
-        noscript-spoof: _ false
+	mail.google.com *
+		_ 1st-party *
+		_ googleusercontent.com image
+		_ gstatic.com image
+		_ gstatic.com script
+		! to remove annoying allow javascript banner
+		noscript-spoof: _ false
 
 reCaptcha
-    * google.com
-        _ google.com *
-        _ google.com script
-        _ google.com frame
-        _ gstatic.com *
-        _ gstatic.com script
+	* google.com
+		_ google.com *
+		_ google.com script
+		_ google.com frame
+		_ gstatic.com *
+		_ gstatic.com script
 
 Amazon.co
-    amazon.com *
-        _ 1st-party *
-        _ www.amazon.com cookie 
-        _ ssl-images-amazon.com *
-        _ ssl-images-amazon.com script
+	amazon.com *
+		_ 1st-party *
+		_ www.amazon.com cookie 
+		_ ssl-images-amazon.com *
+		_ ssl-images-amazon.com script
 
 MDN
-    developer.mozilla.org *
-        _ 1st-party *
-        _ mdn.mozilla.net css
-        _ mdn.mozilla.net image
-        _ mdn.mozilla.net script
-        _ mdn.mozillademos.org frame
-        _ mdm.mozillademos.org script
+	developer.mozilla.org *
+		_ 1st-party *
+		_ mdn.mozilla.net css
+		_ mdn.mozilla.net image
+		_ mdn.mozilla.net script
+		_ mdn.mozillademos.org frame
+		_ mdm.mozillademos.org script
