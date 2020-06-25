@@ -138,3 +138,8 @@ Localhost
     localhost
         _ 1st-party *
         _ localhost *
+
+You Need A Budget
+    app.youneedabudget.com *
+        _ 1st-party *
+        _ youneedabudget.com *
