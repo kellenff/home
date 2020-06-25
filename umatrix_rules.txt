@@ -113,3 +113,24 @@ Online Go
         _ cloudflare.com *
         _ rackcdn.com *
 
+Asana
+    asana.com *
+        _ 1st-party *
+        _ asana.com *
+        _ d3exhk6mksjlyy.cloudfront.net *
+        _ d3ki9tyy5l5ruj.cloudfront.net *
+        _ harvestapp.com *
+        _ harvestfiles.com *
+        _ s3.amazonaws.com *
+
+Harvest
+    harvestapp.com *
+        _ 1st-party *
+        _ harvestapp.com *
+        _ harvestfiles.com *
+
+Toggl
+    toggl.com
+        _ 1st-party *
+        _ toggl.com *
+
