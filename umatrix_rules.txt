@@ -154,3 +154,7 @@ Instapaper
 Instapaper third party
     * instapaper.com
         _ instapaper.com *
+
+Drupal.org
+    drupal.org *
+        _ 1st-party *
