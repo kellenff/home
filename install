@@ -1,0 +1,34 @@
+#!/usr/bin/env zsh -r -v -e
+
+CONFIG_PATH=$PWD
+SHORTHOST=${HOST/\.local}
+# OS detection, default to Linux
+case $(uname) in
+    FreeBSD)   OS=FreeBSD ;;
+    DragonFly) OS=FreeBSD ;;
+    OpenBSD)   OS=OpenBSD ;;
+    Darwin)    OS=Darwin  ;;
+    SunOS)     OS=SunOS   ;;
+    *)         OS=Linux   ;;
+esac
+
+XDG_DATA_HOME="$HOME/.config"
+NVIM_CONFIG_DIR="$XDG_DATA_HOME/nvim"
+ln -s -f "$CONFIG_PATH/nvimrc" "$NVIM_CONFIG_DIR/init.vim"
+mkdir -p "$NVIM_CONFIG_DIR/autoload"
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.config}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+ln -s -f "$CONFIG_PATH/zshrc" "$HOME/.zshrc"
+ln -s -f "$CONFIG_PATH/gitconfig" "$HOME/.gitconfig"
+
+if [ "$OS" == Darwin ]; then
+    which brew || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    brew doctor || echo "Pay attention to these errors!"
+    brew update
+    which node || brew install node
+    which wget || brew install wget
+    which rg || (brew tap burntsushi/ripgrep https://github.com/BurntSushi/ripgrep.git && brew install burntsushi/ripgrep/ripgrep-bin)
+    export N_PREFIX="$HOME/.local"
+    which n || brew install n
+fi
+
