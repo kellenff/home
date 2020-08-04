@@ -1,0 +1,16 @@
+[user]
+	email = kellen@kellenfujimoto.com
+	name = Kellen Frodelius-Fujimoto
+	signingKey = B5F6EE85A5E6BBB75925D225C6BE28B394230690
+[core]
+	excludesfile = /home/kellen/.gitignore
+[commit]
+	gpgSign = false
+[tag]
+	forceSignAnnotated = true
+[alias]
+	s = status
+    aa = "add ."
+    ci = commit
+    cim = "commit -m"
+    cin = "commit --no-gpg-sign"
