@@ -1,0 +1,5 @@
+# Antibody plugins: https://getantibody.github.io/usage/
+zsh-users/zsh-completions
+zsh-users/zsh-history-substring-search
+zsh-users/zsh-autosuggestions
+

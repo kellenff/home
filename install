@@ -22,15 +22,18 @@ ln -s -f "$CONFIG_PATH/zshrc" "$HOME/.zshrc"
 ln -s -f "$CONFIG_PATH/zshenv" "$HOME/.zshenv"
 ln -s -f "$CONFIG_PATH/zprofile" "$HOME/.zprofile"
 ln -s -f "$CONFIG_PATH/gitconfig" "$HOME/.gitconfig"
+ln -s -f "$CONFIG_PATH/zsh_plugins.txt" "$HOME/.zsh_plugins.txt"
 
-if [ "$OS" == Darwin ]; then
-    which brew || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    brew doctor || echo "Pay attention to these errors!"
-    brew update
-    which node || brew install node
-    which wget || brew install wget
-    which rg || (brew tap burntsushi/ripgrep https://github.com/BurntSushi/ripgrep.git && brew install burntsushi/ripgrep/ripgrep-bin)
-    export N_PREFIX="$HOME/.local"
-    which n || brew install n
-fi
+which brew || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew doctor || echo "Pay attention to these errors!"
+brew update
+which node || brew install node
+which wget || brew install wget
+which rg || (brew tap burntsushi/ripgrep https://github.com/BurntSushi/ripgrep.git && brew install burntsushi/ripgrep/ripgrep-bin)
+export N_PREFIX="$HOME/.local"
+which n || brew install n
+which zsh || brew install zsh
+which antibody || brew install getantibody/tap/antibody
+
+antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
 
