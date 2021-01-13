@@ -32,8 +32,11 @@ which wget || brew install wget
 which rg || (brew tap burntsushi/ripgrep https://github.com/BurntSushi/ripgrep.git && brew install burntsushi/ripgrep/ripgrep-bin)
 export N_PREFIX="$HOME/.local"
 which n || brew install n
+which nvim || brew install neovim
 which zsh || brew install zsh
 which antibody || brew install getantibody/tap/antibody
 
 antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
+
+curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
 
