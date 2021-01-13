@@ -30,10 +30,10 @@ call plug#begin(stdpath('data') . '/plugged')
   "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   "Plug 'ervandew/supertab'
   Plug 'tpope/vim-endwise'
-  Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+  "Plug 'autozimu/LanguageClient-neovim', {
+    "\ 'branch': 'next',
+    "\ 'do': 'bash install.sh',
+    "\ }
 
   " Python
   Plug 'davidhalter/jedi-vim'
@@ -55,15 +55,24 @@ call plug#begin(stdpath('data') . '/plugged')
   " Golang
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
+  " JavaScript
+  Plug 'pangloss/vim-javascript'
+
+  " Typescript
+  Plug 'leafgarland/typescript-vim'
+  Plug 'peitalin/vim-jsx-typescript'
+
   " Syntax file completion
 
   " Testing
   " -------
-  Plug 'janko-m/vim-test'
+  Plug 'vim-test/vim-test'
 
   " Linting
   " -------
-  Plug 'w0rp/ale'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'neoclide/coc-eslint'
+  "Plug 'w0rp/ale'
 
   " Misc.
   " =====
@@ -187,14 +196,42 @@ vnoremap / /\v
 
     let g:endwise_no_mappings = 1
 
-    let g:LanguageClient_serverCommands = {
-                \ 'go': ['gopls'],
-                \ 'rust': ['rust-analyzer'],
-                \ }
-
     " Golang
     let g:go_def_mode='gopls'
     let g:go_info_mode='gopls'
+
+    " CoC
+    " extensions
+    let g:coc_global_extensions = [
+                \ 'coc-tsserver'
+                \ ]
+    " use <tab> to trigger completion and navigate to the next complete item
+    function! s:check_back_space() abort
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1] =~ '\s'
+    endfunction
+
+    inoremap <silent><expr> <Tab>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<Tab>" :
+        \ coc#refresh()
+
+    inoremap <silent><expr> <S-Tab>
+                \ pumvisible() ? "\<C-p>" :
+                \ <SID>check_back_space() ? "\<S-Tab>" :
+                \ coc#refresh()
+
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gr <Plug>(coc-references)
+
+    nnoremap <silent> <space>d :<C-u>CocList diagnostics<cr>
+
+    " use <cr> to confirm selection
+    inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+    " if you want to also reformat code on <cr>
+    "inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR><c-r>=coc#on_enter()\<CR>"
+    
 
     " Ale
 
@@ -217,8 +254,10 @@ vnoremap / /\v
 "inoremap <s-tab> <c-n>
 
 " testing
+let test#strategy = "dispatch"
+
 function! MapCR()
-    nnoremap <cr> :call RunTestFile()<cr>
+    nnoremap <cr> :TestNearest<cr>
 endfunction
 call MapCR()
 nnoremap <leader>T :call RunNearestTest()<cr>
@@ -376,4 +415,14 @@ function! AdjustWindowHeight(minheight, maxheight)
 endfunction
 
 au FileType qf nmap q :ccl<cr>
+
+" Use tsx plugin on jsx files
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+
+" Ensure that syntax highlighting is synced for javascript and typescript
+" files
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+
+colorscheme minimal
 
