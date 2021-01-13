@@ -1,16 +1,28 @@
 [user]
 	email = kellen@kellenfujimoto.com
 	name = Kellen Frodelius-Fujimoto
-	signingKey = B5F6EE85A5E6BBB75925D225C6BE28B394230690
+	signingkey = B5F6EE85A5E6BBB75925D225C6BE28B394230690
 [core]
-	excludesfile = /home/kellen/.gitignore
+	excludesfile = /Users/kellen/.gitignore
+	autocrlf = input
 [commit]
-	gpgSign = false
+	gpgsign = true
 [tag]
 	forceSignAnnotated = true
 [alias]
 	s = status
+    a = add
     aa = "add ."
     ci = commit
     cim = "commit -m"
     cin = "commit --no-gpg-sign"
+[gpg]
+	program = /usr/local/bin/gpg
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[pull]
+	rebase = true
