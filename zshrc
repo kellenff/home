@@ -27,13 +27,9 @@ prompt pure
 zmodload zsh/zpty
 
 # Sourcing
-export PATH="/usr/local/bin:$PATH"
-export PATH=$HOME/.pyenv/bin:$PATH
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-export PATH=$HOME/bin:$PATH
 source $HOME/.cargo/env
-source /usr/local/share/chruby/chruby.sh
 
 # Completions
 # ignore these files in tab completion
@@ -89,9 +85,9 @@ setopt SHARE_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_REDUCE_BLANKS
 # spots for duplicates/uniques
-HISTSIZE=16000                  
+HISTSIZE=1600000
 # unique events guaranteed
-SAVEHIST=15000                  
+SAVEHIST=1500000
 HISTFILE=~/.zshhistory
 
 # Sanity
@@ -112,6 +108,9 @@ autoload -U select-word-style
 # Bash-style word separators stop at file path separators
 select-word-style bash  
 
+# Get around argument list limits
+autoload zargs;
+
 # Aliases
 alias ls='ls -F'
 
@@ -130,11 +129,10 @@ export DISABLE_OPENCOLLECTIVE=1
 
 # N node version manager
 export N_PREFIX=$HOME/.local/share
+export PATH=$N_PREFIX/bin:$PATH
 
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/kellen/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/home/kellen/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/kellen/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/kellen/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+export SPACESHIP_CHAR_SYMBOL_ROOT='#'
 
