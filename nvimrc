@@ -17,6 +17,7 @@ call plug#begin(stdpath('data') . '/plugged')
   " Vimproc functions as an async library for vim plugins
   Plug 'Shougo/vimproc.vim', {'do': 'make'}
   Plug 'tpope/vim-dispatch'
+  Plug 'tpope/vim-surround'
 
   " VCS
   " ===
