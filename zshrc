@@ -136,3 +136,6 @@ source /usr/local/opt/chruby/share/chruby/auto.sh
 
 export SPACESHIP_CHAR_SYMBOL_ROOT='#'
 
+# Disable lando's verbosity
+alias lando="NODE_NO_WARNINGS=1 lando"
+
