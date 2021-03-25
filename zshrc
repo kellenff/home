@@ -15,14 +15,6 @@ fpath+=~/.zsh/pure
 autoload -U promptinit; promptinit
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
-## Prompt colors
-zstyle :prompt:pure:path color default
-zstyle ':prompt:pure:prompt:*' color default
-zstyle ':prompt:pure:git:*' color default
-zstyle :prompt:pure:git:branch color 242
-
-prompt pure
-
 # Required for deoplete completions
 zmodload zsh/zpty
 
@@ -138,4 +130,6 @@ export SPACESHIP_CHAR_SYMBOL_ROOT='#'
 
 # Disable lando's verbosity
 alias lando="NODE_NO_WARNINGS=1 lando"
+
+eval "$(starship init zsh)"
 
