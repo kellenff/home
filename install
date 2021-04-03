@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh -r -v -e
 
+XDG_CONFIG_HOME=$XDG_CONFIG_HOME || "$HOME/.config"
 CONFIG_PATH=$PWD
 SHORTHOST=${HOST/\.local}
 # OS detection, default to Linux
@@ -39,4 +40,7 @@ which antibody || brew install getantibody/tap/antibody
 antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
 
 curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+
+curl -fsSL https://starship.rs/install.sh | bash
+ln -s -f "$CONFIG_PATH/starship.toml" "$XDG_CONFIG_HOME/starship.toml"
 

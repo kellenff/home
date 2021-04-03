@@ -1,0 +1,18 @@
+# https://starship.rs/config/#character
+[character]
+success_symbol = '[\$](bright-white)'
+error_symbol = '[\$](bright-red)'
+
+# https://starship.rs/config/#directory
+[directory]
+style = "bright-white"
+
+# https://starship.rs/config/#git-branch
+[git_branch]
+style = "bright-white"
+
+[aws]
+disabled = true
+
+[python]
+style = "bright-white"
