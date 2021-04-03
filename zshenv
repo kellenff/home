@@ -1,4 +1,6 @@
 export GOPATH=$HOME/go
+# Go's new async preemption breaks restic. Since this is the primary use of compiled go program for me, just enable globally
+export GODEBUG=asyncpreemptoff=1
 export PATH=$GOPATH/bin:$PATH
 export PATH=/usr/pgsql-12/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
