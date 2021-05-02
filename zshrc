@@ -123,9 +123,6 @@ export DISABLE_OPENCOLLECTIVE=1
 export N_PREFIX=$HOME/.local/share
 export PATH=$N_PREFIX/bin:$PATH
 
-source /usr/local/opt/chruby/share/chruby/chruby.sh
-source /usr/local/opt/chruby/share/chruby/auto.sh
-
 export SPACESHIP_CHAR_SYMBOL_ROOT='#'
 
 # Disable lando's verbosity
