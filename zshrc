@@ -1,31 +1,46 @@
-GEOMETRY_PROMPT=(geometry_status geometry_jobs geometry_path)
-GEOMETRY_RPROMPT=(geometry_git)
-GEOMETRY_EXITCODE_COLOR="red"
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 # Antibody bundles
 source ~/.zsh_plugins.sh
 
 # Custom functions
 fpath+=~/.zfunc
-fpath+=~/.zsh/pure
 
 ##########
 # Prompt #
 ##########
-autoload -U promptinit; promptinit
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
+# export GEOMETRY_STATUS_SYMBOL_ERROR="▲" 
+# export GEOMETRY_STATUS_COLOR_ERROR="green"
+# export GEOMETRY_EXITCODE_COLOR="green"
+# export GEOMETRY_HOSTNAME_HIDE_ON="ironclad"
+# export GEOMETRY_PATH_TRUNCATE=1
+# export GEOMETRY_PATH_COLOR=253
+# export GEOMETRY_GIT_COLOR_BRANCH=245
+
+# export GEOMETRY_PROMPT=(geometry_exitcode geometry_hostname geometry_path geometry_status)
+# export GEOMETRY_RPROMPT=(geometry_git_conflicts geometry_git_rebase geometry_git_remote geometry_git_branch)
+
+PS1="%F{124}%(?..%? )%f"
+
+PS1+='%1~ %% '
 
 # Required for deoplete completions
 zmodload zsh/zpty
 
-# Sourcing
+# initialize pyenv's virtualenv plugin
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-source $HOME/.cargo/env
 
 # Completions
 # ignore these files in tab completion
-FIGNORE=".o:~"                  
+FIGNORE=".o:~"
 # completions push cursor to end
 setopt ALWAYS_TO_END            
 setopt CORRECT
@@ -40,18 +55,12 @@ zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %
 zstyle ':completion:*' use-compctl true
 # pasting with tabs doesn't perform completion
 zstyle ':completion:*' insert-tab pending   
-autoload -Uz compinit
-# Only compile completions once per day
-# https://gist.github.com/ctechols/ca1035271ad134841284#gistcomment-2767420
-setopt EXTENDEDGLOB
-for dump in $HOME/.zcompdump(#qN.m1); do
-    compinit
-    if [[ -s "$dump" && (! -s "$dump.zwc" || "$dump" -nt "$dump.zwc") ]]; then
-        zcompile "$dump"
-    fi
-done
-unsetopt EXTENDEDGLOB
-compinit -C
+autoload -Uz compinit 
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+	compinit;
+else
+	compinit -C;
+fi;
 
 
 
@@ -125,8 +134,13 @@ export PATH=$N_PREFIX/bin:$PATH
 
 export SPACESHIP_CHAR_SYMBOL_ROOT='#'
 
-# Disable lando's verbosity
-alias lando="NODE_NO_WARNINGS=1 lando"
+export JIRA_API_TOKEN=ZfoLj217nDKm4GHgj8fY12EE
 
-eval "$(starship init zsh)"
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/kellen/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/kellen/Downloads/google-cloud-sdk/path.zsh.inc'; fi
 
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/kellen/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/kellen/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
