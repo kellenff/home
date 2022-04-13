@@ -6,96 +6,8 @@ if &compatible
   set nocompatible               " Be iMproved
 endif
 
-" Required:
-set runtimepath+=$HOME/.config/nvim/dein/repos/github.com/Shougo/dein.vim
+execute pathogen#infect('~/.config/nvim/bundle/{}')
 
-" Required:
-call plug#begin(stdpath('data') . '/plugged')
-
-  " Essentials
-  " ==========
-  " Vimproc functions as an async library for vim plugins
-  Plug 'Shougo/vimproc.vim', {'do': 'make'}
-  Plug 'tpope/vim-dispatch'
-  Plug 'tpope/vim-surround'
-
-  " VCS
-  " ===
-  " Show changes to the left on a per-line basis
-  Plug 'airblade/vim-gitgutter'
-
-  " Languages
-  " =========
-  " Completion
-  " ----------
-  "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  "Plug 'ervandew/supertab'
-  Plug 'tpope/vim-endwise'
-  "Plug 'autozimu/LanguageClient-neovim', {
-    "\ 'branch': 'next',
-    "\ 'do': 'bash install.sh',
-    "\ }
-
-  " Python
-  Plug 'davidhalter/jedi-vim'
-
-  " Elixir
-  Plug 'elixir-lang/vim-elixir'
-  Plug 'kbrw/elixir.nvim', { 'do': 'yes \| ./install.sh' }
-
-  " Rust
-  Plug 'rust-lang/rust.vim'
-
-  " Dockerfile checking
-  Plug 'hadolint/hadolint', { 'for': 'docker' }
-
-  " C/C++
-
-  " vimscript
-
-  " Golang
-  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
-  " JavaScript
-  Plug 'pangloss/vim-javascript'
-
-  " Typescript
-  Plug 'leafgarland/typescript-vim'
-  Plug 'peitalin/vim-jsx-typescript'
-
-  " Syntax file completion
-
-  " Testing
-  " -------
-  Plug 'vim-test/vim-test'
-
-  " Linting
-  " -------
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'neoclide/coc-eslint'
-  "Plug 'w0rp/ale'
-
-  " Misc.
-  " =====
-  " Airline is a statusline extension with useful features like Ctrl-P
-  " integration
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-
-  " Ctrl-P is a fuzzy file searcher
-  Plug 'ctrlpvim/ctrlp.vim'
-
-  " Tmux
-  Plug 'tmux-plugins/vim-tmux-focus-events'
-  Plug 'roxma/vim-tmux-clipboard'
-
-  " Run commands inside of a small tmux pane
-  Plug 'benmills/vimux'
-
-  " Required:
-call plug#end()
-
-" Required:
 filetype plugin indent on
 syntax enable
 
@@ -211,16 +123,6 @@ vnoremap / /\v
         let col = col('.') - 1
         return !col || getline('.')[col - 1] =~ '\s'
     endfunction
-
-    inoremap <silent><expr> <Tab>
-        \ pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<Tab>" :
-        \ coc#refresh()
-
-    inoremap <silent><expr> <S-Tab>
-                \ pumvisible() ? "\<C-p>" :
-                \ <SID>check_back_space() ? "\<S-Tab>" :
-                \ coc#refresh()
 
     nmap <silent> gd <Plug>(coc-definition)
     nmap <silent> gy <Plug>(coc-type-definition)
@@ -373,14 +275,95 @@ set showcmd
 set cmdheight=2
 set laststatus=2
 
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline_powerline_fonts = 1
-    let g:airline_theme = 'minimalist'
-    let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-    let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'minimalist'
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline#extensions#ale#enabled = 1
 
 " Misc.
 " =====
+
+" From the coc.nvim docs
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Ctrl-P
     set wildignore+=*/tmp/*,*.so,*.swp,*.zip
