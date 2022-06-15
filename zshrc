@@ -128,9 +128,8 @@ fi
 export ADBLOCK=1
 export DISABLE_OPENCOLLECTIVE=1
 
-# N node version manager
-export N_PREFIX=$HOME/.local/share
-export PATH=$N_PREFIX/bin:$PATH
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 export SPACESHIP_CHAR_SYMBOL_ROOT='#'
 
