@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh -r -v -e
 
-XDG_CONFIG_HOME=$XDG_CONFIG_HOME || "$HOME/.config"
+XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-"$HOME/.config"}
 CONFIG_PATH=$PWD
 SHORTHOST=${HOST/\.local}
 # OS detection, default to Linux
@@ -13,11 +13,10 @@ case $(uname) in
     *)         OS=Linux   ;;
 esac
 
-XDG_DATA_HOME="$HOME/.config"
-NVIM_CONFIG_DIR="$XDG_DATA_HOME/nvim"
-ln -s -f "$CONFIG_PATH/nvimrc" "$NVIM_CONFIG_DIR/init.vim"
+NVIM_CONFIG_DIR="$XDG_CONFIG_HOME/nvim"
 mkdir -p "$NVIM_CONFIG_DIR/autoload"
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.config}"/nvim/site/autoload/plug.vim --create-dirs \
+ln -s -f "$CONFIG_PATH/nvimrc" "$NVIM_CONFIG_DIR/init.vim"
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 ln -s -f "$CONFIG_PATH/zshrc" "$HOME/.zshrc"
 ln -s -f "$CONFIG_PATH/zshenv" "$HOME/.zshenv"
@@ -25,22 +24,24 @@ ln -s -f "$CONFIG_PATH/zprofile" "$HOME/.zprofile"
 ln -s -f "$CONFIG_PATH/gitconfig" "$HOME/.gitconfig"
 ln -s -f "$CONFIG_PATH/zsh_plugins.txt" "$HOME/.zsh_plugins.txt"
 
-which brew || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew doctor || echo "Pay attention to these errors!"
-brew update
-which node || brew install node
-which wget || brew install wget
-which rg || (brew tap burntsushi/ripgrep https://github.com/BurntSushi/ripgrep.git && brew install burntsushi/ripgrep/ripgrep-bin)
-export N_PREFIX="$HOME/.local"
-which n || brew install n
-which nvim || brew install neovim
-which zsh || brew install zsh
-which antibody || brew install getantibody/tap/antibody
+if [[ "$OS" == "Darwin" ]]; then
+    which brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    brew doctor || echo "Pay attention to these errors!"
+    brew update
+    which node || brew install node
+    which wget || brew install wget
+    which rg || brew install ripgrep
+    export N_PREFIX="$HOME/.local"
+    which n || brew install n
+    which nvim || brew install neovim
+    which zsh || brew install zsh
+    which antibody || brew install getantibody/tap/antibody
 
-antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
+    antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
+fi
 
 curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
 
+mkdir -p "$XDG_CONFIG_HOME"
 curl -fsSL https://starship.rs/install.sh | bash
 ln -s -f "$CONFIG_PATH/starship.toml" "$XDG_CONFIG_HOME/starship.toml"
-
